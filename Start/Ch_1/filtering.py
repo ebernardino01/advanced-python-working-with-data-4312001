@@ -22,11 +22,27 @@ def filterUppers(x):
 nums = (1, 8, 4, 5, 13, 26, 381, 410, 58, 47)
 chars = "abcDeFGHiJklmnoP"
 
-# TODO: use filter to remove items from a list
+# use filter to remove items from a list
+odds = list(filter(filterEvens, nums))
+print(odds)
 
-# TODO: use filter on non-numeric sequence
+# use filter on non-numeric sequence
+lowers = list(filter(filterUppers, chars))
+print(lowers)
 
 # Use the filter on our data - let's filter out all seismic events that were *not* quakes
 # open the data file and load the JSON
-# with open("../../30DayQuakes.json", "r") as datafile:
-#     data = json.load(datafile)
+with open("../../30DayQuakes.json", "r") as datafile:
+    data = json.load(datafile)
+
+
+def is_not_earthquake(data_item):
+    if data_item['properties']['type'] == 'earthquake':
+        return False
+    return True
+
+
+events = list(filter(is_not_earthquake, data['features']))
+print(f'Total non-earthquake events: {len(events)}')
+for i in range(0, 10):
+    print(events[i]['properties']['type'])

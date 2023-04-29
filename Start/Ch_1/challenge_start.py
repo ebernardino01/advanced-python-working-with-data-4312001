@@ -13,4 +13,44 @@ import json
 # open the data file and load the JSON
 with open("../../30DayQuakes.json", "r") as datafile:
     data = json.load(datafile)
-    
+
+print(f"Total quakes: {len(data['features'])}")
+print(f"""Total quakes felt by at least 100 people: {
+    sum(
+        quake['properties']['felt'] is not None
+        and quake['properties']['felt'] >= 100
+        for quake in data['features']
+    )
+}""")
+
+
+def get_felt(data_item):
+    felt = data_item['properties']['felt']
+    if felt is None:
+        felt = 0
+    return felt
+
+
+most_felt = max(data['features'], key=get_felt)
+print(f"""Most felt reports: {
+    most_felt['properties']['title']
+}, reports: {
+    most_felt['properties']['felt']
+}""")
+
+
+def get_sig(data_item):
+    sig = data_item['properties']['sig']
+    if sig is None:
+        return 0
+    return sig
+
+
+sig_events = sorted(data['features'], key=get_sig, reverse=True)
+print("The 10 most significant events were: ")
+for i in range(0, 10):
+    print(f"""Event: {
+        sig_events[i]['properties']['title']
+    }, Significance: {
+        sig_events[i]['properties']['sig']
+    }""")

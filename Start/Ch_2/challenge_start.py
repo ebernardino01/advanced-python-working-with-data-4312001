@@ -2,8 +2,16 @@
 # Programming challenge: use advanced data collections on the earthquake data
 
 import json
+from collections import defaultdict
 
 
 # open the data file and load the JSON
 with open("../../30DayQuakes.json", "r") as datafile:
     data = json.load(datafile)
+
+totals = defaultdict(int)
+for event in data['features']:
+    totals[event['properties']['type']] += 1
+
+for key, val in totals.items():
+    print(f"{key}: {val}")

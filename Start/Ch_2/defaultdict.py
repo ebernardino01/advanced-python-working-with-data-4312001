@@ -7,11 +7,12 @@ from collections import defaultdict
 fruits = ['apple', 'pear', 'orange', 'banana',
           'apple', 'grape', 'banana', 'banana']
 
-# TODO: use a dictionary to count each element
-fruitCounter = dict()
+# use a dictionary to count each element
+fruitCounter = defaultdict(int)
 
-# TODO: Count the elements in the list
+# Count the elements in the list
 for fruit in fruits:
     fruitCounter[fruit] += 1
 
-# TODO: print the result
+# print the result
+print(fruitCounter)
